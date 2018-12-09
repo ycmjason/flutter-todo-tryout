@@ -25,18 +25,42 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void _changeTodoDesc(ToDoItemModel todo, String s) {
+    setState(() {
+      todo.description = s;
+    });
+  }
+
+  void _newTodo() {
+    setState(() {
+      _todos.add(ToDoItemModel());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: ToDoList(
-        onCheck: (ToDoItemModel todoItem) => _toggleTodo(todoItem),
-        todos: _todos
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            child: ToDoList(
+                onToggle: _toggleTodo,
+                onChange: _changeTodoDesc,
+                todos: _todos,
+            ),
+          ),
+          /*
+          Text(_todos.map((ToDoItemModel todo) {
+            return '[${todo.done ? 'DONE' : 'NOT DONE'}] ${todo.description}';
+          }).join('\n')),
+          */
+        ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => null,
+        onPressed: _newTodo,
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ),

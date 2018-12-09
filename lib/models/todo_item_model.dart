@@ -1,7 +1,7 @@
 class ToDoItemModel {
   ToDoItemModel({this.description = '', this.done = false});
 
-  final String description;
+  String description;
   bool done;
 
   void toggle() {
